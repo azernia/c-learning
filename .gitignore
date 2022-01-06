@@ -1,0 +1,4 @@
+*.exe
+/array/*.exe
+/demo/*.exe
+.vscode
