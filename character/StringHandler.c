@@ -37,7 +37,7 @@ int main()
     strcat(str1, str2);
     printf("%s\n",str1);
     printf("======================================\n");
-    // 相同返回0
+    // 相同返回 0
     printf("%d", strcmp(testStr1, testStr2));
     return 0;
 }
