@@ -1,4 +1,5 @@
 *.exe
 /array/*.exe
 /demo/*.exe
+/character/*.exe
 .vscode
