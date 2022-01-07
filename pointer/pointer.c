@@ -20,5 +20,7 @@ int main()
     *pa = 3;
     printf("%d\n", *pa);
     printf("size pointer : %lu\n", sizeof(*pa));
+    printf("the address is %p\n", pa);
+    printf("pa =  %p\n, pa+1 =  %p\n, pa+2 =  %p\n, pa+4 =  %p\n", pa, pa+1, pa+2, pa+4);
     return 0;
 }
