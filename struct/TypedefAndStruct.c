@@ -12,6 +12,10 @@ typedef struct Date
 int main()
 {
     struct Date *date;
+
+    // date = (struct Date *)malloc(sizeof(struct Date)); 原写法
+
+    // 使用 typedef 后的写法
     date = (P_Date)malloc(sizeof(Date));
     if(date == NULL)
     {
