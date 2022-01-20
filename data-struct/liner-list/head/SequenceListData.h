@@ -5,7 +5,10 @@
 
 typedef int ElementType;
 
-
+/**
+ * 顺序表元素结构
+ * 
+ */
 typedef struct {
     ElementType data[MAX_SZIE];
     int length;
