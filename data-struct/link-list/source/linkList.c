@@ -105,6 +105,11 @@ ElementType delElement(LinkList *linkList, int position)
         delElement = node->data;
         preNode->next = node->next;
         free(node);
+        linkList->length--;
     }
     return delElement;
+}
+
+void clearLinkList(LinkList *linkList)
+{
 }

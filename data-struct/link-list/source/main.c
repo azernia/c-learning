@@ -13,7 +13,7 @@ int main()
     initLinkList(&linkList, dataArray, sizeof(dataArray)/sizeof(dataArray[0]));
     printLinkList(&linkList);
     insertLinkList(&linkList, 10, 1);
-    printf("===================\n");
+    printf("after insert 10 ===================\n");
     printLinkList(&linkList);
     // printf("===================\n");
     // printf("%d\n",getElement(&linkList, 1));

@@ -3,9 +3,6 @@
 
 #include "SequenceListData.h"
 
-#define TRUE 1
-#define FALSE 0
-
 /**
  * 初始化顺序表
  * 

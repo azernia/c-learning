@@ -40,4 +40,10 @@ ElementType getElement(LinkList *linkList, int position);
 */
 ElementType delElement(LinkList *linkList, int position);
 
+/**
+ * 清空链表
+ * @param linkList 需要清空的链表
+*/
+void clearLinkList(LinkList *linkList);
+
 #endif

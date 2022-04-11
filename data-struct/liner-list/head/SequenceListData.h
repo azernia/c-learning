@@ -2,6 +2,8 @@
 #define __SEQUENCELISTDATA_H_
 
 #define MAX_SZIE 10
+#define TRUE 1
+#define FALSE 0
 
 typedef int ElementType;
 
