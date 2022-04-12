@@ -15,8 +15,8 @@ int main()
     insertLinkList(&linkList, 10, 1);
     printf("after insert 10 ===================\n");
     printLinkList(&linkList);
-    // printf("===================\n");
-    // printf("%d\n",getElement(&linkList, 1));
+    printf("===================\n");
+    printf("%d\n",getElement(&linkList, 1));
     printf("===================\n");
     printf("%d\n", delElement(&linkList, 2));
     printf("===================\n");

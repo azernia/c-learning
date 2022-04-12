@@ -8,7 +8,7 @@ void initLinkList(LinkList *linkList, ElementType *dataArray, int length)
     linkList->length = 0;
     for(int i = 0; i < length; i++)
     {
-        insertLinkList(linkList, i + 1, dataArray[i]);
+        insertLinkList(linkList, dataArray[i], i + 1);
     }
 }
 

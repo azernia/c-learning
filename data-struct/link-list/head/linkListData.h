@@ -5,7 +5,7 @@
  * 单链表
  * 每个结点都有后继结点
  * 链表的优点
- *  存储空间利用率搞笑
+ *  存储空间利用率高效
 */
 
 typedef int ElementType;
@@ -19,7 +19,7 @@ typedef struct Node
     struct Node *next;
 } Node;
 
-// 链表的定义
+// 链表的定义 头结点
 typedef struct LinkList
 {
     // 头指针 如果有头结点就指向头结点否则指向第一个结点
