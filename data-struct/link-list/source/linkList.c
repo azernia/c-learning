@@ -81,6 +81,7 @@ ElementType delElement(LinkList *linkList, int position)
 {
     Node *node = NULL;
     ElementType delElement = -1;
+    // 删除第一个元素
     if(position == 1)
     {
         node = linkList->next;
@@ -93,6 +94,7 @@ ElementType delElement(LinkList *linkList, int position)
         free(node);
         return delElement;
     }
+    // 非第一个元素
     Node *preNode;
     node = linkList->next;
     for(int i = 1; node && i < position; i++)
@@ -112,4 +114,15 @@ ElementType delElement(LinkList *linkList, int position)
 
 void clearLinkList(LinkList *linkList)
 {
+    // 声明两个指针
+    Node *node = linkList->next;
+    Node *nextNode;
+    while(node)
+    {
+        nextNode = node->next;  // 记录当前节点的下一个节点
+        free(node);
+        node = nextNode;
+    }
+    linkList->next = NULL;
+    linkList->length = 0;
 }

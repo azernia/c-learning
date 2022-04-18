@@ -21,5 +21,10 @@ int main()
     printf("%d\n", delElement(&linkList, 2));
     printf("===================\n");
     printLinkList(&linkList);
+    printf("===================\n");
+    printf("clear link list\n");
+    clearLinkList(&linkList);
+    printf("===================\n");
+    printLinkList(&linkList);
     return 0;
 }
