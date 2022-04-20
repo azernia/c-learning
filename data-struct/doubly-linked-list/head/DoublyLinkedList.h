@@ -22,6 +22,14 @@ void initDoublyLinkedList(DoublyLinkedList *list, ElementType *dataArray, int le
 void insertDoublyLinkedList(DoublyLinkedList *list, ElementType element, int position);
 
 /**
+ * 通过位置删除双向链表结点
+ * @param list 操作的链表
+ * @param position 位置
+ * @return ElementType  返回删除的元素
+ */
+ElementType deleteDoublyNodeByPosition(DoublyLinkedList *list, int position);
+
+/**
  * 打印双向链表
  * @param list 需要打印的链表
  */

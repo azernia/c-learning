@@ -11,6 +11,10 @@ int main()
     DoublyLinkedList *list = (DoublyLinkedList *)malloc(sizeof(DoublyLinkedList));
     initDoublyLinkedList(list, dataArray, 3);
     printDoublyLinkedList(list);
+    printf("=========================\n");
+    ElementType result =  deleteDoublyNodeByPosition(list, 1);
+    printf("delete result = %d\n", result);
+    printDoublyLinkedList(list);
     free(list);
     return 0;
 }
