@@ -105,6 +105,35 @@ ElementType deleteDoublyNodeByPosition(DoublyLinkedList *list, int position)
     return element;
 }
 
+DoublyNode * getDoublyNodeByPosition(DoublyLinkedList *list, int position)
+{
+    DoublyNode *node = list->next;
+    if(!node || list->length == 0)
+    {
+        printf("the doubly linked list is empty\n");
+        list->length = 0;
+        return NULL;
+    }
+    if(position == 1)
+    {
+        return list->next;
+    }
+    for (int i = 1; node && i < position; i++)
+    {
+        node = node->next;
+    }
+    return node;
+}
+
+DoublyNode * getPreNodeByNode(DoublyNode *node)
+{
+    if(!node->pre)   
+    {
+        return NULL;
+    }
+    return node->pre;
+}
+
 void printDoublyLinkedList(DoublyLinkedList *list)
 {
     DoublyNode *node = list->next;

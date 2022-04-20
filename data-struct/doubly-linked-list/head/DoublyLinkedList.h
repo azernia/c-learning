@@ -30,6 +30,21 @@ void insertDoublyLinkedList(DoublyLinkedList *list, ElementType element, int pos
 ElementType deleteDoublyNodeByPosition(DoublyLinkedList *list, int position);
 
 /**
+ * 通过位置获取双向链表的结点
+ * @param list 操作的链表
+ * @param position 位置
+ * @return DoublyNode 返回的结点指针
+ */
+DoublyNode * getDoublyNodeByPosition(DoublyLinkedList *list, int position);
+
+/**
+ * 通过结点获取前一个结点
+ * @param node 结点
+ * @return DoublyNode* 结点指针
+ */
+DoublyNode * getPreNodeByNode(DoublyNode *node);
+
+/**
  * 打印双向链表
  * @param list 需要打印的链表
  */
