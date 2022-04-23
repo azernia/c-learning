@@ -10,5 +10,9 @@ int main()
     StaticLinkedList list;
     initStaticLinkedList(list);
     printStaticLinekdList(list);
+    printf("=======================\n");
+    ElementType element = 1;
+    insertElementByPoistion(list, 1, element);
+    printStaticLinekdList(list);
     return 0;
 }

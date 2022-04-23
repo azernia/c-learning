@@ -10,6 +10,7 @@ typedef int ElementType;
 typedef struct
 {
     ElementType data;
+    // 游标
     int next;   // 为0无指向
 } StaticLinkedList[MAX_SIZE];
 
