@@ -25,8 +25,25 @@ void printStaticLinekdList(StaticLinkedList list)
     }
 }
 
+int getStaticLinedListLength(StaticLinkedList list)
+{
+    int count = 0;
+    int cursor = list[MAX_SIZE - 1].next;
+    while (cursor)
+    {
+        cursor = list[cursor].next;
+        count++;
+    }
+    return count;
+    
+}
+
 int insertElementByPoistion(StaticLinkedList list, int position, ElementType element)
 {
+    if(position < 1 || position > getStaticLinedListLength(list) + 1)
+    {
+        return FALSE;
+    }
     // 最后一个元素的 next 即第一个元素的下标
     int cursor = MAX_SIZE - 1;
     // 判断 cursor 的范围是否合法
@@ -56,4 +73,29 @@ int mallocStaticLinedList(StaticLinkedList list)
         list[0].next = list[cursor].next;
     }
     return cursor;
+}
+
+int deleteElementByPosition(StaticLinkedList list, int position)
+{
+    if(position < 1 || position > getStaticLinedListLength(list))
+    {
+        return FALSE;
+    }
+    int cursor = MAX_SIZE - 1;
+    // 通过循环找打要删除位置的前缀结点
+    for (int i = 0; i < position - 1; i++)
+    {
+        cursor = list[cursor].next;
+    }
+    int delIndex = list[cursor].next;
+    list[delIndex].data = 0;
+    list[cursor].next = list[delIndex].next;
+    // 释放空间
+    freeStaticLinedList(list, delIndex);
+}
+
+void freeStaticLinedList(StaticLinkedList list, int index)
+{
+    list[index].next = list[0].next;
+    list[0].next = index;
 }
