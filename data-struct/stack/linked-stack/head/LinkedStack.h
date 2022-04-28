@@ -31,4 +31,10 @@ int pop(LinkedStatck *stack, ElementType *element);
  */
 void clear(LinkedStatck *stack);
 
+/**
+ * 销毁栈
+ * @param stack 操作的栈
+ */
+void destory(LinkedStatck *stack);
+
 #endif

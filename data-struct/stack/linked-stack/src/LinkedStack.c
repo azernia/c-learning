@@ -46,7 +46,15 @@ void clear(LinkedStatck *stack)
         tempNode = stack->top;
         stack->top = stack->top->next;
         free(tempNode);
-        stack->length--;
+        stack->length--; 
     }
     
+}
+
+void destory(LinkedStatck *stack)
+{
+    // 清空
+    clear(stack);
+    free(stack);
+    stack = NULL;
 }
