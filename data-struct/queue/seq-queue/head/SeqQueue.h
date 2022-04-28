@@ -17,4 +17,12 @@ void init(SeqQueue *queue);
  */
 int enqueue(SeqQueue *queue, ElementType element);
 
+/**
+ * 出队 先进先出
+ * @param queue 操作的队列
+ * @param element 出队的元素
+ * @return int 0-失败 1-成功
+ */
+int dequeue(SeqQueue *queue, ElementType *element);
+
 #endif
