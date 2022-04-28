@@ -11,9 +11,9 @@ void init(SeqQueue *queue)
 
 int enqueue(SeqQueue *queue, ElementType element)
 {
-    if(queue->rear == MAX_SIZE - 1)
+    if(queue->rear == MAX_SIZE)
     {
-        printf("the sequence queue is full");
+        printf("the sequence queue is full\n");
         return FALSE;
     }
     queue->data[queue->rear] = element;
