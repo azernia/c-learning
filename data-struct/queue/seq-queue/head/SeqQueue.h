@@ -25,4 +25,10 @@ int enqueue(SeqQueue *queue, ElementType element);
  */
 int dequeue(SeqQueue *queue, ElementType *element);
 
+/**
+ * 清空队列
+ * @param queue 操作的队列
+ */
+void clear(SeqQueue *queue);
+
 #endif

@@ -32,3 +32,12 @@ int dequeue(SeqQueue *queue, ElementType *element)
     queue->top++;
     return TRUE;
 }
+
+void clear(SeqQueue *queue)
+{
+    while (queue->top < MAX_SIZE)
+    {
+        queue->top++;
+    }
+    init(queue);
+}
