@@ -25,4 +25,10 @@ int push(LinkedStatck *stack, ElementType element);
  */
 int pop(LinkedStatck *stack, ElementType *element);
 
+/**
+ * 清空栈
+ * @param stack 操作的栈
+ */
+void clear(LinkedStatck *stack);
+
 #endif

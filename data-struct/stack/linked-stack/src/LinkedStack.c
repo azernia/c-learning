@@ -34,5 +34,19 @@ int pop(LinkedStatck *stack, ElementType *element)
     // 指向下一个
     stack->top = stack->top->next;
     free(tempNode);
+    stack->length--;
     return TRUE;
+}
+
+void clear(LinkedStatck *stack)
+{
+    LinkedStatckNode *tempNode = NULL;
+    while (stack->top)
+    {
+        tempNode = stack->top;
+        stack->top = stack->top->next;
+        free(tempNode);
+        stack->length--;
+    }
+    
 }
