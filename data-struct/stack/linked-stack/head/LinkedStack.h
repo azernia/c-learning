@@ -17,4 +17,12 @@ void initLinkedStack(LinkedStatck *stack);
  */
 int push(LinkedStatck *stack, ElementType element);
 
+/**
+ * 出栈
+ * @param stack 操作的栈
+ * @param element 出栈的元素
+ * @return int 0-成功 1-失败
+ */
+int pop(LinkedStatck *stack, ElementType *element);
+
 #endif

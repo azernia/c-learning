@@ -20,3 +20,19 @@ int push(LinkedStatck *stack, ElementType element)
     stack->length++;
     return TRUE;
 }
+
+int pop(LinkedStatck *stack, ElementType *element)
+{
+    if(stack->top == NULL)
+    {
+        printf("the linked stack is empty\n");
+        return FALSE;
+    }
+    *element = stack->top->data;
+    // 暂存栈顶指针
+    LinkedStatckNode *tempNode = stack->top;
+    // 指向下一个
+    stack->top = stack->top->next;
+    free(tempNode);
+    return TRUE;
+}
