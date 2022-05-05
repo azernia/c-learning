@@ -9,4 +9,25 @@
  */
 int init(CircularQueue *queue);
 
+/**
+ * 队列是否为空
+ * @param queqe 
+ * @return int 0-否 1-是
+ */
+int isEmpty(CircularQueue *queqe);
+
+/**
+ * 队列是否已满
+ * @param queqe 
+ * @return int 0-否 1-是
+ */
+int isFull(CircularQueue *queqe);
+
+/**
+ * 入队
+ * @param queue 
+ * @param element 
+ */
+void enqueue(CircularQueue *queue, ElementType element);
+
 #endif
