@@ -12,7 +12,7 @@ typedef struct CircularQueue
 {
     ElementType data[MAX_SIZE];
     // 队头下标
-    int top;
+    int front;
     // 队尾下标
     int rear;
 } CircularQueue;
