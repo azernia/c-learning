@@ -14,20 +14,20 @@ int init(CircularQueue *queue);
  * @param queqe 
  * @return int 0-否 1-是
  */
-int isEmpty(CircularQueue *queqe);
+State isEmpty(CircularQueue *queqe);
 
 /**
  * 队列是否已满
  * @param queqe 
  * @return int 0-否 1-是
  */
-int isFull(CircularQueue *queqe);
+State isFull(CircularQueue *queqe);
 
 /**
  * 入队
  * @param queue 
  * @param element 
  */
-void enqueue(CircularQueue *queue, ElementType element);
+State enqueue(CircularQueue *queue, ElementType element);
 
 #endif
