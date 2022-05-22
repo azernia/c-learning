@@ -30,4 +30,11 @@ State isFull(CircularQueue *queqe);
  */
 State enqueue(CircularQueue *queue, ElementType element);
 
+/**
+ * 出队
+ * @param queue 操作的队列
+ * @param element 记录出队元素的指正
+ */
+State dequeue(CircularQueue *queue, ElementType *element);
+
 #endif

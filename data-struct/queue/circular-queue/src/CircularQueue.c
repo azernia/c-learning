@@ -34,12 +34,25 @@ int isFull(CircularQueue *queqe)
 
 State enqueue(CircularQueue *queue, ElementType element)
 {
-    if(isFull)
+    if(isFull(queue))
     {
         return STATE_FAIL;
     }
     queue->data[queue->rear] = element;
     queue->rear = (queue->rear + 1) % MAX_SIZE;
     queue->length++;
+    return STATE_OK;
+}
+
+State dequeue(CircularQueue *queue, ElementType *element)
+{
+    if(isFull(queue))
+    {
+        return STATE_FAIL;
+    }
+    *element = queue->data[queue->front];
+    // 队头队尾都可循环
+    queue->front = (queue->front + 1) % MAX_SIZE;
+    queue->length--;
     return STATE_OK;
 }
