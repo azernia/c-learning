@@ -10,6 +10,8 @@
 
 #define TRUE 1
 #define FALSE 0
+#define OK 1
+#define ERROR 0
 #define EQ 0
 #define GT 1 // great than
 #define LT -1 // less than
