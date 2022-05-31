@@ -97,6 +97,13 @@ Status insert(HeepString *source, int pos, HeepString *insertStr);
 Status replace(HeepString *str, HeepString oldStr, HeepString newStr);
 
 /**
+ * 清空字符串
+ * @param str 
+ * @return Status 
+ */
+Status clearString(HeepString *str);
+
+/**
  * 打印字符串
  * @param str 
  */
