@@ -60,3 +60,64 @@ Status strAssign(LinkedString *linkedString, char *str)
     }
     linkedString->length = len;
 }
+
+Status strCopy(LinkedString *dest, LinkedString *src)
+{
+    initLinkedString(dest);
+    if(!src->length)
+    {
+        return ERROR;
+    }
+    for(BlockNode *block = src->head; block; block = block->next)
+    {
+        BlockNode *newBlock = (BlockNode *)malloc(sizeof(BlockNode));
+        if(!newBlock)
+        {
+            return ERROR;
+        }
+        newBlock->next = NULL;
+        if(block == src->head)
+        {
+            dest->head = dest->tail = newBlock;
+        }
+        else
+        {
+            dest->tail->next = newBlock;
+            dest->tail = newBlock;
+        }
+        for(int i = 0; i < BLOCK_SIZE; i++)
+        {
+            newBlock->data[i] = block->data[i];
+        }
+    }
+    dest->length = src->length;
+    return OK;
+}
+
+Status compare(LinkedString *str1, LinkedString *str2)
+{
+    BlockNode *block1 = str1->head;
+    BlockNode *block2 = str2->head;
+    while(block1 && block2)
+    {
+        for(int i = 0; i < BLOCK_SIZE && block1->data[i] != '\0' && block2->data[i] != '\0'; i++)
+        {
+            if(block1->data[i] != block2->data[i])
+            {
+                return block1->data[i] - block2->data[i];
+            }
+        }
+        block1 = block1->next;
+        block2 = block2->next;
+    }
+    return str1->length - str2->length;
+}
+
+Status isEmpty(LinkedString *linkedString)
+{
+    if(linkedString->head == NULL || linkedString->tail == NULL || linkedString->length == 0)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}

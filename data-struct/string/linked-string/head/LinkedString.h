@@ -18,4 +18,27 @@ void initLinkedString(LinkedString *linkedString);
  */
 Status strAssign(LinkedString *linkedString, char *str);
 
+/**
+ * 复制字符串
+ * @param dest 
+ * @param src 
+ * @return Status 
+ */
+Status strCopy(LinkedString *dest, LinkedString *src);
+
+/**
+ * 比较两个字符串
+ * @param str1 
+ * @param str2 
+ * @return Status 
+ */
+Status compare(LinkedString *str1, LinkedString *str2);
+
+/**
+ * 是否为空
+ * @param linkedString 
+ * @return Status 
+ */
+Status isEmpty(LinkedString *linkedString);
+
 #endif
