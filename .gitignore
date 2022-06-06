@@ -3,3 +3,7 @@
 /demo/*.exe
 /character/*.exe
 .vscode
+.idea
+
+/cmake-build-debug
+/CMakeLists.txt

@@ -116,7 +116,7 @@ int clearList(SeqList *seqList)
 {
     if(seqList == NULL)
     {
-        return;
+        return 0;
     }
     seqList->length = 0;
 }
