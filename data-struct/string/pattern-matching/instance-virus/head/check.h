@@ -8,4 +8,12 @@
  */
 void getNext(char *pattern, int *next);
 
+/**
+ * 检测病毒是否存在
+ * @param str 
+ * @param pattern 
+ * @return int 
+ */
+int checkVirus(char *str, char *pattern);
+
 #endif // _CHECK_H_

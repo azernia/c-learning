@@ -6,12 +6,22 @@
 
 int main()
 {
-    char *pattern = "ababaa";
-    int next[strlen(pattern)];
-    getNext(pattern, next);
-    for (int i = 0; i < strlen(pattern); ++i)
+    char *str[10] = {
+        "bbaabbba",
+        "aaabbbba",
+        "abceaabb",
+        "abaabcea"
+    };
+    char *pattern[2] = {
+        "baa",
+        "aabb"
+    };
+    for(int i = 0; i < 2; i++)
     {
-        printf("%d ", next[i]);
+        printf("%s\n", str[i]);
+        printf("%s\n", pattern[0]);
+        printf("%s\n", checkVirus(str[i], pattern[i]) ? "YES" : "NO");
+        printf("%d\n", checkVirus(str[i], pattern[i]));
     }
     return 0;
 }
