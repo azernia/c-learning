@@ -66,6 +66,10 @@ void testAdjList(GraphType type) {
     if (type == UNDIGRAPH) {
         status = createUDGAdjList(&graph);
     }
+    if (status == ERROR) {
+        printf("创建失败");
+        return;
+    }
     for (int i = 0; i < graph.vexNum; ++i) {
         VerTexNode verTexNode = graph.adjList[i];
         printf("下标%d 顶点%s:", i, verTexNode.verTex);
