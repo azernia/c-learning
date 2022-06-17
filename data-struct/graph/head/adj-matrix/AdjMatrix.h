@@ -15,7 +15,7 @@ typedef struct AdjMatrixGraph {
     VerTex verTex[MAX_VERTEX];  // 顶点数组
     int adjMatrix[MAX_VERTEX][MAX_VERTEX];  // 领接矩阵
     int verTexNum;  // 定点数
-    int arcNum; // 弧树
+    int arcNum; // 弧
     GraphType type; //图的类型
 }AdjMatrixGraph;
 
