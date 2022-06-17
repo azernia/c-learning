@@ -34,6 +34,13 @@ Status createUDG(AdjMatrixGraph *graph);
 Status createDG(AdjMatrixGraph *graph);
 
 /**
+ * 使用邻接矩阵创建有向网
+ * @param graph
+ * @return
+ */
+Status createDN(AdjMatrixGraph *graph);
+
+/**
  * 获取顶点在数组中的下标
  * @param graph 图
  * @param verTex 顶点

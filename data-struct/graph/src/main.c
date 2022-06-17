@@ -2,6 +2,7 @@
 
 int main() {
 //    testAdjMatrix(UNDIGRAPH);
-    testAdjMatrix(DIGRAPH);
+//    testAdjMatrix(DIGRAPH);
+    testAdjMatrix(DINET);
     return 0;
 }
