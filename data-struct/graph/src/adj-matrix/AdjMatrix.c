@@ -51,7 +51,42 @@ Status createUDG(AdjMatrixGraph *graph) {
 }
 
 Status createDG(AdjMatrixGraph *graph) {
-
+    graph->type = DIGRAPH;    // 设置图的类型为有向图
+    printf("请输入有向图的顶点数:");
+    scanf("%d", &graph->verTexNum);
+    printf("请输入有向图弧(边)数:");
+    scanf("%d", &graph->arcNum);
+    printf("依次输入顶点信息:\n");
+    for (int i = 0; i < graph->verTexNum; ++i) {
+        graph->verTex[i] = (VerTex) malloc(sizeof (char) * 10);
+        printf("顶点 %d:", i + 1);
+        scanf("%s", graph->verTex[i]);
+    }
+    // 初始化邻接矩阵，所有边的权值为 0
+    for (int i = 0; i < graph->verTexNum; ++i) {
+        for (int j = 0; j < graph->verTexNum; ++j) {
+            graph->adjMatrix[i][j] = 0;
+        }
+    }
+    printf("请输入顶点和领接顶点信息构建邻接矩阵\n");
+    for (int i = 0; i < graph->arcNum; ++i) {
+        VerTex  verTex1 = (VerTex) malloc(sizeof (char) * 10);
+        VerTex  verTex2 = (VerTex) malloc(sizeof (char) * 10);
+        printf("顶点:");
+        scanf("%s", verTex1);
+        printf("邻接点:");
+        scanf("%s", verTex2);
+        // 分别获取两个顶点在数组中的下标
+        int x = locateVerText(graph, verTex1);
+        int y = locateVerText(graph, verTex2);
+        if (x == -1 || y == -1) {
+            return ERROR;
+        }
+        graph->adjMatrix[x][y] = 1;
+        free(verTex1);
+        free(verTex2);
+    }
+    return OK;
 }
 
 int locateVerText(AdjMatrixGraph *graph, VerTex verTex) {
@@ -66,30 +101,31 @@ int locateVerText(AdjMatrixGraph *graph, VerTex verTex) {
 }
 
 void testAdjMatrix(GraphType type) {
+    AdjMatrixGraph graph;
+    Status status = ERROR;
     if (type == UNDIGRAPH) {
-        AdjMatrixGraph graph;
         // 创建无向图
-        Status status = createUDG(&graph);
-        if (status == ERROR) {
-            printf("创建失败\n");
-            return;
-        }
-        printf("打印邻接矩阵\n");
-        printf("\t");
-        for (int i = 0; i < graph.verTexNum; ++i) {
-            printf("\t%s", graph.verTex[i]);
-        }
-        printf("\n");
-        for (int i = 0; i < graph.verTexNum; ++i) {
-            printf("\t%s", graph.verTex[i]);
-            for (int j = 0; j < graph.verTexNum; ++j) {
-                printf("\t%d", graph.adjMatrix[i][j]);
-            }
-            printf("\n");
-        }
+        status = createUDG(&graph);
+    } else if (type == DIGRAPH) {
+        // 创建有向图
+        status = createDG(&graph);
+    }
+    if (status == ERROR) {
+        printf("创建失败\n");
         return;
     }
-    if (type == DIGRAPH) {
-
+    printf("打印邻接矩阵\n");
+    printf("\t");
+    for (int i = 0; i < graph.verTexNum; ++i) {
+        printf("\t%s", graph.verTex[i]);
     }
+    printf("\n");
+    for (int i = 0; i < graph.verTexNum; ++i) {
+        printf("\t%s", graph.verTex[i]);
+        for (int j = 0; j < graph.verTexNum; ++j) {
+            printf("\t%d", graph.adjMatrix[i][j]);
+        }
+        printf("\n");
+    }
+    return;
 }
