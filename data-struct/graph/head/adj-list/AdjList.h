@@ -8,38 +8,35 @@
 
 #include "../common/GraphModel.h"
 
-/**
- * 弧或边的结点
- */
-typedef struct Node {
-    int adjVex; // 指向邻接点的下标
-    struct Node * next; // 指向下一结点的指针
-    int weight; // 权重
-} EdgeNode, ArcNode;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../common/GraphModel.h"
 
-/**
- * 顶点结点
- */
-typedef struct VerTexNode {
-      VerTex verTex;    // 顶点的取值
-      union {
-          EdgeNode *firstEdge;  // 指向第一条边的指针
-          ArcNode *firstArc;    // 指向第一条弧的指针
-      };
-} VerTexNode, AdjList[MAX_VERTEX];
 
-/**
- * 邻接表实现图结构
- */
-typedef struct AdjListGraph {
-    AdjList adjList;    // 邻接表顶点数组
-    int vexNum;
-    union {
-        int edgeNum;    // 边数
-        int arcNum;     // 弧数
-    };
-    GraphType type; // 图的类型
-} AdjListGraph;
+/** 边/弧的结点 */
+typedef struct node{
+    int adjVex;                     //该边指向这条边邻接点的下标
+    struct node * nextEdge;         //指向下一条边结点的指针
+    struct node * nextArc;          //指向下一个弧结点的指针
+    int weight;                 //权重
+}EdgeNode, ArcNode;
+
+/** 顶点结点 */
+typedef struct vexNode{
+    VerTex vex;                 //顶点值
+    EdgeNode * firstEdge;           //指向第一条边的指针
+    ArcNode * firstArc;             //指向第一条弧的指针
+}VNode, AdjList[MAX_VERTEX];
+
+/** 邻接表实现的图结构 */
+typedef struct adjGraph{
+    AdjList vexes;                  //顶点数组
+    int vexCount;                   //顶点数量
+    int edgeCount;                  //图的边数
+    int arcCount;                   //图的弧数
+    GraphType type;                 //图的类型
+}AdjListGraph;
 
 /**
  * 通过领接表创建无向图
@@ -47,6 +44,20 @@ typedef struct AdjListGraph {
  * @return
  */
 Status createUDGAdjList(AdjListGraph *graph);
+
+/**
+ * 通过邻接表创建有向图
+ * @param graph
+ * @return
+ */
+Status createDGAdjList(AdjListGraph *graph);
+
+/**
+ * 通过邻接表创建有向网
+ * @param graph
+ * @return
+ */
+Status createDNAdjList(AdjListGraph *graph);
 
 /**
  * 返回顶点 VerTex 在顶点数组中的下标，没找到返回 -1

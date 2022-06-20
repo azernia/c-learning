@@ -5,6 +5,8 @@ int main() {
 //    testAdjMatrix(UNDIGRAPH);
 //    testAdjMatrix(DIGRAPH);
 //    testAdjMatrix(DINET);
-    testAdjList(UNDIGRAPH);
+//    testAdjList(UNDIGRAPH);
+//    testAdjList(DIGRAPH);
+    testAdjList(DINET);
     return 0;
 }
