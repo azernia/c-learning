@@ -15,7 +15,7 @@ Status createUDG(AdjMatrixGraph *graph) {
     scanf("%d", &graph->arcNum);
     printf("依次输入顶点信息:\n");
     for (int i = 0; i < graph->verTexNum; ++i) {
-        graph->verTex[i] = (VerTex) malloc(sizeof (char) * 10);
+        graph->verTex[i] = (VerTex) malloc(sizeof(char) * 10);
         printf("顶点 %d:", i + 1);
         scanf("%s", graph->verTex[i]);
     }
@@ -27,8 +27,8 @@ Status createUDG(AdjMatrixGraph *graph) {
     }
     printf("请输入顶点和领接顶点信息构建邻接矩阵\n");
     for (int i = 0; i < graph->arcNum; ++i) {
-        VerTex  verTex1 = (VerTex) malloc(sizeof (char) * 10);
-        VerTex  verTex2 = (VerTex) malloc(sizeof (char) * 10);
+        VerTex verTex1 = (VerTex) malloc(sizeof(char) * 10);
+        VerTex verTex2 = (VerTex) malloc(sizeof(char) * 10);
         printf("顶点:");
         scanf("%s", verTex1);
         printf("邻接点:");
@@ -58,7 +58,7 @@ Status createDG(AdjMatrixGraph *graph) {
     scanf("%d", &graph->arcNum);
     printf("依次输入顶点信息:\n");
     for (int i = 0; i < graph->verTexNum; ++i) {
-        graph->verTex[i] = (VerTex) malloc(sizeof (char) * 10);
+        graph->verTex[i] = (VerTex) malloc(sizeof(char) * 10);
         printf("顶点 %d:", i + 1);
         scanf("%s", graph->verTex[i]);
     }
@@ -70,8 +70,8 @@ Status createDG(AdjMatrixGraph *graph) {
     }
     printf("请输入顶点和领接顶点信息构建邻接矩阵\n");
     for (int i = 0; i < graph->arcNum; ++i) {
-        VerTex  verTex1 = (VerTex) malloc(sizeof (char) * 10);
-        VerTex  verTex2 = (VerTex) malloc(sizeof (char) * 10);
+        VerTex verTex1 = (VerTex) malloc(sizeof(char) * 10);
+        VerTex verTex2 = (VerTex) malloc(sizeof(char) * 10);
         printf("顶点:");
         scanf("%s", verTex1);
         printf("邻接点:");
@@ -97,7 +97,7 @@ Status createDN(AdjMatrixGraph *graph) {
     scanf("%d", &graph->arcNum);
     printf("依次输入顶点信息:\n");
     for (int i = 0; i < graph->verTexNum; ++i) {
-        graph->verTex[i] = (VerTex) malloc(sizeof (char) * 10);
+        graph->verTex[i] = (VerTex) malloc(sizeof(char) * 10);
         printf("顶点 %d:", i + 1);
         scanf("%s", graph->verTex[i]);
     }
@@ -109,8 +109,8 @@ Status createDN(AdjMatrixGraph *graph) {
     }
     printf("请输入顶点和领接顶点信息构建邻接矩阵\n");
     for (int i = 0; i < graph->arcNum; ++i) {
-        VerTex  verTex1 = (VerTex) malloc(sizeof (char) * 10);
-        VerTex  verTex2 = (VerTex) malloc(sizeof (char) * 10);
+        VerTex verTex1 = (VerTex) malloc(sizeof(char) * 10);
+        VerTex verTex2 = (VerTex) malloc(sizeof(char) * 10);
         printf("顶点:");
         scanf("%s", verTex1);
         printf("邻接点:");
@@ -140,6 +140,62 @@ int locateVerText(AdjMatrixGraph *graph, VerTex verTex) {
         index++;
     }
     return index == graph->verTexNum ? -1 : index;
+}
+
+void adjMatrixGraphDFS(AdjMatrixGraph *graph) {
+    // 初始化状态数组
+    for (int i = 0; i < graph->verTexNum; ++i) {
+        visited[i] = UN_VISITED;    // 初始状态设置为未访问
+    }
+    // DFS
+    for (int i = 0; i < graph->verTexNum; ++i) {
+        if (!visited[i]) {
+            // 若某个顶点未被访问，调用遍历函数
+            adjMatrixDFS(graph, i);
+        }
+    }
+}
+
+void adjMatrixDFS(AdjMatrixGraph *graph, int index) {
+    printf("-> %s", graph->verTex[index]); // 访问当前顶点
+    visited[index] = VISITED;
+    for (int i = firstAdjVerTex(graph, graph->verTex[index]); i; i = secondAdjVerTex(graph, graph->verTex[index],graph->verTex[i])) {
+        if (!visited[i]) {
+            // 如果没有访问则继续递归搜索
+            adjMatrixDFS(graph, i);
+        }
+    }
+}
+
+int firstAdjVerTex(AdjMatrixGraph *graph, VerTex verTex) {
+    int i = locateVerText(graph, verTex);   // 找到顶点在顶点数组中的下标
+    if (i == -1) {
+        return ERROR;
+    }
+    int defaultWeight;
+    defaultWeight = graph->type <= 1 ? 0 : INT16_MAX;
+    // 搜索图的邻接矩阵中顶点 vertex 的第一个邻接点下标
+    for (int j = 0; j < graph->verTexNum; ++j) {
+        if (graph->adjMatrix[i][j] != defaultWeight) {
+            return j;
+        }
+    }
+    return 0;
+}
+
+int secondAdjVerTex(AdjMatrixGraph *graph, VerTex verTex1, VerTex verTex2) {
+    int index1 = locateVerText(graph, verTex1);
+    int index2 = locateVerText(graph, verTex2);
+    if (index1 == -1 || index2 == -1) {
+        return 0;
+    }
+    int defaultWeight = graph->type <= 1 ? 0 : INT16_MAX;
+    for (int i = index2 + 1; i < graph->verTexNum; i++) {
+        if (graph->adjMatrix[index1][i] != defaultWeight) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 void testAdjMatrix(GraphType type) {
@@ -176,4 +232,6 @@ void testAdjMatrix(GraphType type) {
         }
         printf("\n");
     }
+    printf("\n深度优先遍历 DFS\n");
+    adjMatrixGraphDFS(&graph);
 }
