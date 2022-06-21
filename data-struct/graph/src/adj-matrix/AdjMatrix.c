@@ -142,61 +142,100 @@ int locateVerText(AdjMatrixGraph *graph, VerTex verTex) {
     return index == graph->verTexNum ? -1 : index;
 }
 
-void adjMatrixGraphDFS(AdjMatrixGraph *graph) {
-    // 初始化状态数组
-    for (int i = 0; i < graph->verTexNum; ++i) {
-        visited[i] = UN_VISITED;    // 初始状态设置为未访问
+/** 邻接矩阵的深度优先遍历 */
+void adjMatrixGraphDFS(AdjMatrixGraph G){
+    //初始化状态数组
+    for(int i = 0; i < G.verTexNum; i++){
+        visited[i] = UN_VISITED;     //初始状态设置为未访问
     }
-    // DFS
-    for (int i = 0; i < graph->verTexNum; ++i) {
-        if (!visited[i]) {
-            // 若某个顶点未被访问，调用遍历函数
-            adjMatrixDFS(graph, i);
+    //DFS遍历
+    for(int i = 0; i < G.verTexNum; i++){
+        if(!visited[i]){//如果某个顶点未访问
+            //调用遍历函数
+            adjMatrixDFS(G, i);
         }
     }
 }
 
-void adjMatrixDFS(AdjMatrixGraph *graph, int index) {
-    printf("-> %s", graph->verTex[index]); // 访问当前顶点
-    visited[index] = VISITED;
-    for (int i = firstAdjVerTex(graph, graph->verTex[index]); i; i = secondAdjVerTex(graph, graph->verTex[index],graph->verTex[i])) {
-        if (!visited[i]) {
-            // 如果没有访问则继续递归搜索
-            adjMatrixDFS(graph, i);
+/** 深度优先搜索的核心算法，index为深度搜索的某个顶点下标 */
+void adjMatrixDFS(AdjMatrixGraph G, int index){
+    printf(" -> %s", G.verTex[index]);     //访问当前顶点
+    visited[index] = VISITED;               //更改当前顶点的访问状态
+    for(int i = firstAdjVerTex(G, G.verTex[index]); i;
+        i = secondAdjVerTex(G, G.verTex[index], G.verTex[i])){
+        if(!visited[i]){
+            adjMatrixDFS(G, i);  //如果没有访问过，就继续递归调用访问
         }
     }
 }
 
-int firstAdjVerTex(AdjMatrixGraph *graph, VerTex verTex) {
-    int i = locateVerText(graph, verTex);   // 找到顶点在顶点数组中的下标
-    if (i == -1) {
-        return ERROR;
-    }
-    int defaultWeight;
-    defaultWeight = graph->type <= 1 ? 0 : INT16_MAX;
-    // 搜索图的邻接矩阵中顶点 vertex 的第一个邻接点下标
-    for (int j = 0; j < graph->verTexNum; ++j) {
-        if (graph->adjMatrix[i][j] != defaultWeight) {
+/** 返回顶点vex所在行中的第一个邻接点下标 */
+int firstAdjVerTex(AdjMatrixGraph G, VerTex vex){
+    int i = locateVerText(&G, vex);         //找到顶点vex在顶点数组中的下标
+    if(i == -1) return ERROR;
+    int defaultWeight;                  //默认权重
+    defaultWeight = G.type <= 1 ? 0 : INT16_MAX;          //图/网
+    //搜索图的邻接矩阵中与顶点vex的第一个邻接点下标
+    for(int j = i + 1; j < G.verTexNum; j++){
+        if(G.adjMatrix[i][j] != defaultWeight){
             return j;
         }
     }
     return 0;
 }
 
-int secondAdjVerTex(AdjMatrixGraph *graph, VerTex verTex1, VerTex verTex2) {
-    int index1 = locateVerText(graph, verTex1);
-    int index2 = locateVerText(graph, verTex2);
-    if (index1 == -1 || index2 == -1) {
-        return 0;
-    }
-    int defaultWeight = graph->type <= 1 ? 0 : INT16_MAX;
-    for (int i = index2 + 1; i < graph->verTexNum; i++) {
-        if (graph->adjMatrix[index1][i] != defaultWeight) {
+/** 返回与顶点vex1邻接的另一个邻接点，没有就返回0 */
+int secondAdjVerTex(AdjMatrixGraph G, VerTex vex1, VerTex vex2){
+    int index1 = locateVerText(&G, vex1);
+    int index2 = locateVerText(&G, vex2);
+    if(index1 == -1 || index2 == -1) return 0;
+    int defaultWeight;
+    defaultWeight = G.type <= 1 ? 0 : INT16_MAX;
+    for(int i = index2 + 1; i< G.verTexNum; i++){
+        if(G.adjMatrix[index1][i] != defaultWeight){
             return i;
         }
     }
     return 0;
 }
+
+/** 广度优先搜索的核心算法 - index为广度优先搜索的某个顶点下标 */
+void adjMatrixBFS(AdjMatrixGraph G, int index){
+    printf(" -> %s", G.verTex[index]);
+    visited[index] = VISITED;               //设置顶点状态为已访问
+
+    LinkedQueue queue;
+    initLinkedQueue(&queue);
+    //将当前顶点入队
+    enqueue(&queue, G.verTex[index]);
+    while(queue.front != queue.rear){
+        //取出队头元素，遍历队头顶点的所有邻接点
+        VerTex vex;                     //取出的队头顶点
+        dequeue(&queue, &vex);
+        for(int i = firstAdjVerTex(G, vex); i; i = secondAdjVerTex(G, vex, G.verTex[i])){
+            if(!visited[i]){
+                printf(" -> %s", G.verTex[i]);
+                visited[i] = VISITED;        //设置顶点状态为已访问
+                enqueue(&queue, G.verTex[i]);
+            }
+        }
+    }
+}
+
+/** 邻接矩阵的广度优先遍历 */
+void adjMatrixGraphBFS(AdjMatrixGraph G){
+    //初始化状态数组
+    for(int i = 0; i < G.verTexNum; i++){
+        visited[i] = UN_VISITED;
+    }
+    //循环遍历每个顶点
+    for(int i = 0; i < G.verTexNum; i++){
+        if(!visited[i]){
+            adjMatrixBFS(G, i);
+        }
+    }
+}
+
 
 void testAdjMatrix(GraphType type) {
     AdjMatrixGraph graph;
@@ -233,5 +272,7 @@ void testAdjMatrix(GraphType type) {
         printf("\n");
     }
     printf("\n深度优先遍历 DFS\n");
-    adjMatrixGraphDFS(&graph);
+    adjMatrixGraphDFS(graph);
+    printf("\n广度优先遍历 BFS\n");
+    adjMatrixGraphBFS(graph);
 }

@@ -6,7 +6,8 @@
 #ifndef GRAPH_ADJMATRIX_H
 #define GRAPH_ADJMATRIX_H
 
-#include "../common/GraphModel.h"
+//#include "../common/GraphModel.h"
+#include "../queue/LinkedQueue.h"
 
 /**
  * 邻接矩阵表示
@@ -44,14 +45,14 @@ Status createDN(AdjMatrixGraph *graph);
  * 邻接矩阵 DFS(Depth First Search) 深度优先搜索
  * @param graph
  */
-void adjMatrixGraphDFS(AdjMatrixGraph *graph);
+void adjMatrixGraphDFS(AdjMatrixGraph graph);
 
 /**
  * 深度优先搜索核心算法
  * @param graph
  * @param index 某个顶点下标
  */
-void adjMatrixDFS(AdjMatrixGraph *graph, int index);
+void adjMatrixDFS(AdjMatrixGraph graph, int index);
 
 /**
  * 获取顶点 VerTex 所在行中第一个邻接点的下标
@@ -59,7 +60,7 @@ void adjMatrixDFS(AdjMatrixGraph *graph, int index);
  * @param verTex
  * @return 返回顶点 VerTex 所在行中第一个邻接点的下标
  */
-int firstAdjVerTex(AdjMatrixGraph *graph, VerTex verTex);
+int firstAdjVerTex(AdjMatrixGraph graph, VerTex verTex);
 
 /**
  * 获取顶点 VerTex 邻接的另一个邻接点(除 vertex 2 的下一个邻接点) 没有返回 -1
@@ -68,7 +69,7 @@ int firstAdjVerTex(AdjMatrixGraph *graph, VerTex verTex);
  * @param verTex2
  * @return 返回顶点 VerTex 邻接的另一个邻接点(除 vertex 2 的下一个邻接点) 没有返回 -1
  */
-int secondAdjVerTex(AdjMatrixGraph *graph, VerTex verTex1, VerTex verTex2);
+int secondAdjVerTex(AdjMatrixGraph graph, VerTex verTex1, VerTex verTex2);
 
 /**
  * 获取顶点在数组中的下标
@@ -77,6 +78,19 @@ int secondAdjVerTex(AdjMatrixGraph *graph, VerTex verTex1, VerTex verTex2);
  * @return 返回顶点的下标 0 开始，不存在返回 -1
  */
 int locateVerText(AdjMatrixGraph *graph, VerTex verTex);
+
+/**
+ * 广度优先搜索算法
+ * @param graph
+ * @param index 某个顶点的下标
+ */
+void adjMatrixBFS(AdjMatrixGraph graph, int index);
+
+/**
+ * 广度优先搜索核心算法
+ * @param graph
+ */
+void adjMatrixGraphBFS(AdjMatrixGraph graph);
 
 /**
  * 测试邻接矩阵
