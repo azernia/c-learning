@@ -67,6 +67,19 @@ Status createDNAdjList(AdjListGraph *graph);
  */
 int locateVerTextAdjList(AdjListGraph *graph, VerTex verTex);
 
+/**
+ * 基于邻接表的深度优先算法
+ * @param graph
+ */
+void adjListDFS(AdjListGraph *graph);
+
+/**
+ * 邻接表深度优先核心算法
+ * @param graph
+ * @param index 当前遍历的顶点(邻接点)下标
+ */
+void adjListGraphDFS(AdjListGraph *graph, int index);
+
 void testAdjList(GraphType type);
 
 #endif //GRAPH_ADJLIST_H

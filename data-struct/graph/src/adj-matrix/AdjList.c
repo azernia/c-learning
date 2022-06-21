@@ -162,6 +162,44 @@ int locateVerTextAdjList(AdjListGraph *graph, VerTex verTex) {
     return index;
 }
 
+void adjListDFS(AdjListGraph *graph) {
+    // 初始化访问状态数组
+    for (int i = 0; i < graph->vexCount; ++i) {
+        visited[i] = UN_VISITED;
+    }
+    for (int i = 0; i < graph->vexCount; i++) {
+        if (!visited[i]) {
+            // 如果顶点没有访问过就递归访问该顶点
+            adjListGraphDFS(graph, i);
+        }
+    }
+}
+
+void adjListGraphDFS(AdjListGraph *graph, int index) {
+    printf("-> %s", graph->vexes[index].vex);
+    visited[index] = VISITED;   // 设置 index 下标的顶点被访问
+    if (graph->type == UNDIGRAPH || graph->type == UNDINET) {
+        EdgeNode *edgeNode = graph->vexes[index].firstEdge;
+        while (edgeNode) {
+            if (!visited[edgeNode->adjVex]) {
+                // 如果邻接点未访问就递归访问
+                adjListGraphDFS(graph, edgeNode->adjVex);
+            }
+            edgeNode = edgeNode->nextEdge;
+        }
+    }
+    if (graph->type == DIGRAPH || graph->type == DINET) {
+        ArcNode *arcNode = graph->vexes[index].firstArc;
+        while (arcNode) {
+            if (!visited[arcNode->adjVex]) {
+                // 如果邻接点未访问就递归访问
+                adjListGraphDFS(graph, arcNode->adjVex);
+            }
+            arcNode = arcNode->nextArc;
+        }
+    }
+}
+
 void testAdjList(GraphType type) {
     AdjListGraph graph;
     Status status = ERROR;
@@ -199,6 +237,8 @@ void testAdjList(GraphType type) {
         }
         printf("\n");
     }
+    printf("邻接表实现的深度优先搜索\n");
+    adjListDFS(&graph);
 //    for(int i = 0; i < graph.vexCount; i++){
 //        VNode vNode = graph.vexes[i];
 //        printf("顶点：%s", vNode.vex);
