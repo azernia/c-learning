@@ -222,6 +222,7 @@ void adjListBFS(AdjListGraph graph, int index) {
     enqueue4AdjList(&queue, &graph.vexes[index]);
     while (!isLinkedQueueEmpty4AdjList(&queue)) {
         VNode *vNode = (VNode *) malloc(sizeof(VNode));
+        VNode *tempNode = vNode;
         dequeue4AdjList(&queue, &vNode);
         // 获得出队顶点的下标
         int indexVNode = locateVerTextAdjList(&graph, vNode->vex);
@@ -250,7 +251,7 @@ void adjListBFS(AdjListGraph graph, int index) {
                 arcNode = arcNode->nextArc;
             }
         }
-//        free(vNode);
+        free(tempNode);
     }
 }
 
