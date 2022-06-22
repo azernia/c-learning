@@ -208,7 +208,7 @@ void adjMatrixBFS(AdjMatrixGraph G, int index){
     initLinkedQueue(&queue);
     //将当前顶点入队
     enqueue(&queue, G.verTex[index]);
-    while(queue.front != queue.rear){
+    while(isLinkedQueueEmpty(&queue)){
         //取出队头元素，遍历队头顶点的所有邻接点
         VerTex vex;                     //取出的队头顶点
         dequeue(&queue, &vex);

@@ -80,6 +80,19 @@ void adjListDFS(AdjListGraph *graph);
  */
 void adjListGraphDFS(AdjListGraph *graph, int index);
 
+/**
+ * 邻接表广度优先遍历
+ * @param graph
+ */
+void adjListGraphBFS(AdjListGraph graph);
+
+/**
+ * 邻接表广度优先核心算法
+ * @param graph
+ * @param index
+ */
+void adjListBFS(AdjListGraph graph, int index);
+
 void testAdjList(GraphType type);
 
 #endif //GRAPH_ADJLIST_H

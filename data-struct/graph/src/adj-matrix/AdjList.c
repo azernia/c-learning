@@ -2,7 +2,10 @@
  * Created by Rui on 2022/6/17.
  */
 
+//#include "../../head/adj-list/AdjList.h"
+#include "../../head/queue/LinkedQueue4AdjList.h"
 #include "../../head/adj-list/AdjList.h"
+
 
 Status createUDGAdjList(AdjListGraph *graph) {
     graph->type = UNDIGRAPH;
@@ -200,6 +203,57 @@ void adjListGraphDFS(AdjListGraph *graph, int index) {
     }
 }
 
+void adjListGraphBFS(AdjListGraph graph) {
+    for (int i = 0; i < graph.vexCount; ++i) {
+        visited[i] = UN_VISITED;
+    }
+    for (int i = 0; i < graph.vexCount; ++i) {
+        if (!visited[i]) {
+            adjListBFS(graph, i);
+        }
+    }
+}
+
+void adjListBFS(AdjListGraph graph, int index) {
+    printf("-> %s", graph.vexes[index].vex);
+    visited[index] = VISITED;
+    LinkedQueue queue;
+    initLinkedQueue4AdjList(&queue);
+    enqueue4AdjList(&queue, &graph.vexes[index]);
+    while (!isLinkedQueueEmpty4AdjList(&queue)) {
+        VNode *vNode = (VNode *) malloc(sizeof(VNode));
+        dequeue4AdjList(&queue, &vNode);
+        // 获得出队顶点的下标
+        int indexVNode = locateVerTextAdjList(&graph, vNode->vex);
+        if (indexVNode == -1) {
+            return;
+        }
+        // 遍历顶点对应的边或弧
+        if (graph.type == UNDIGRAPH || graph.type == UNDINET) {
+            EdgeNode *edgeNode = graph.vexes[indexVNode].firstEdge;
+            while (edgeNode) {
+                if (!visited[edgeNode->adjVex]) {
+                    printf("-> %s", graph.vexes[edgeNode->adjVex].vex);
+                    visited[edgeNode->adjVex] = VISITED;
+                    enqueue4AdjList(&queue, &graph.vexes[edgeNode->adjVex]);
+                }
+                edgeNode = edgeNode->nextEdge;
+            }
+        } else if (graph.type == DIGRAPH || graph.type == DINET) {
+            ArcNode *arcNode = graph.vexes[indexVNode].firstArc;
+            while (arcNode) {
+                if (!visited[arcNode->adjVex]) {
+                    printf("-> %s", graph.vexes[arcNode->adjVex].vex);
+                    visited[arcNode->adjVex] = VISITED;
+                    enqueue4AdjList(&queue, &graph.vexes[arcNode->adjVex]);
+                }
+                arcNode = arcNode->nextArc;
+            }
+        }
+//        free(vNode);
+    }
+}
+
 void testAdjList(GraphType type) {
     AdjListGraph graph;
     Status status = ERROR;
@@ -214,40 +268,46 @@ void testAdjList(GraphType type) {
         printf("创建失败");
         return;
     }
-    printf("邻接表：\n");
     for(int i = 0; i < graph.vexCount; i++){
         VNode vNode = graph.vexes[i];
-        ArcNode * arcNode = vNode.firstArc;
-        printf("顶点%s：", vNode.vex);
-        while(arcNode){
-            printf(" -> %d(%d)", arcNode->adjVex, arcNode->weight);
-            arcNode = arcNode->nextArc;
+        printf("顶点：%s", vNode.vex);
+        EdgeNode * eNode = vNode.firstEdge;
+        while(eNode){
+            printf(" -> %d", eNode->adjVex);
+            eNode = eNode->nextEdge;
         }
         printf("\n");
     }
-
-    printf("逆邻接表：\n");
-    for(int i = 0; i < graph.vexCount; i++){
-        VNode vNode = graph.vexes[i];
-        ArcNode * arcNode = vNode.firstEdge;
-        printf("顶点%s：", vNode.vex);
-        while(arcNode){
-            printf(" <- %d(%d)", arcNode->adjVex, arcNode->weight);
-            arcNode = arcNode->nextEdge;
-        }
-        printf("\n");
-    }
-    printf("邻接表实现的深度优先搜索\n");
+    printf("\n邻接表实现的深度优先遍历\n");
     adjListDFS(&graph);
+
+    printf("\n邻接表实现的广度优先遍历\n");
+    adjListGraphBFS(graph);
+//    printf("邻接表：\n");
 //    for(int i = 0; i < graph.vexCount; i++){
 //        VNode vNode = graph.vexes[i];
-//        printf("顶点：%s", vNode.vex);
-//        EdgeNode * eNode = vNode.firstEdge;
-//        while(eNode){
-//            printf(" -> %d", eNode->adjVex);
-//            eNode = eNode->nextEdge;
+//        ArcNode * arcNode = vNode.firstArc;
+//        printf("顶点%s：", vNode.vex);
+//        while(arcNode){
+//            printf(" -> %d(%d)", arcNode->adjVex, arcNode->weight);
+//            arcNode = arcNode->nextArc;
 //        }
 //        printf("\n");
 //    }
+//
+//    printf("逆邻接表：\n");
+//    for(int i = 0; i < graph.vexCount; i++){
+//        VNode vNode = graph.vexes[i];
+//        ArcNode * arcNode = vNode.firstEdge;
+//        printf("顶点%s：", vNode.vex);
+//        while(arcNode){
+//            printf(" <- %d(%d)", arcNode->adjVex, arcNode->weight);
+//            arcNode = arcNode->nextEdge;
+//        }
+//        printf("\n");
+//    }
+//    printf("邻接表实现的深度优先搜索\n");
+//    adjListDFS(&graph);
+//    printf("\n领接表深度优先遍历\n");
+//    adjListGraphBFS(graph);
 }
-
