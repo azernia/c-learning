@@ -30,6 +30,24 @@ int sequenceBinarySearch(SequenceList list, int searchKey) {
     return 0;
 }
 
+void bubbleSort(SequenceList *list) {
+    for (int i = 0; i < list->length - 1; ++i) {
+        for (int j = 1; j < list->length - i; j++) {
+            if (list->data[j].key > list->data[j + 1].key) {
+                // 交换
+                swapElement((ElementType **) &list->data[j], (ElementType **) &list->data[j + 1]);
+            }
+        }
+    }
+}
+
+void swapElement(ElementType **elementType1, ElementType **elementType2) {
+    ElementType tempElement;
+    memcpy(&tempElement, elementType1, sizeof(ElementType));
+    memcpy(elementType1, elementType2, sizeof(ElementType));
+    memcpy(elementType2, &tempElement, sizeof(ElementType));
+}
+
 void test() {
     SequenceList list;
     init(&list);
@@ -48,7 +66,11 @@ void test() {
     }
     printf("初始化顺序表\n");
     printSeqList(list);
+    printf("\n冒泡排序\n");
+    bubbleSort(&list);
+    printSeqList(list);
     int searchKey = 39;
+    // 二分查找必须有序
     int index = sequenceBinarySearch(list, searchKey);
     printf("二分查找法：searchKey = %d, index = %d\n", searchKey, index);
 }

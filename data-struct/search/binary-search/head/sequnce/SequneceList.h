@@ -36,6 +36,19 @@ void printSeqList(SequenceList list);
 int sequenceBinarySearch(SequenceList list, int searchKey);
 
 /**
+ * 冒泡排序
+ * @param list
+ */
+void bubbleSort(SequenceList *list);
+
+/**
+ * 交换连个参数的值
+ * @param elementType1
+ * @param elementType2
+ */
+void swapElement(ElementType **elementType1, ElementType **elementType2);
+
+/**
  * 测试
  */
 void test();
