@@ -48,6 +48,20 @@ void swapElement(ElementType **elementType1, ElementType **elementType2) {
     memcpy(elementType2, &tempElement, sizeof(ElementType));
 }
 
+int sequenceBinarySearchRecursion(SequenceList list, int searchKey, int low, int high) {
+//    while (low > high) {
+//        return 0;
+//    }
+    int mid = (low + high) / 2;
+    if (searchKey == list.data[mid].key) {
+        return mid;
+    } else if (searchKey < list.data[mid].key) {
+        return sequenceBinarySearchRecursion(list, searchKey, low, mid - 1);
+    } else {
+        return sequenceBinarySearchRecursion(list, searchKey, mid + 1, high);
+    }
+}
+
 void test() {
     SequenceList list;
     init(&list);
@@ -73,4 +87,6 @@ void test() {
     // 二分查找必须有序
     int index = sequenceBinarySearch(list, searchKey);
     printf("二分查找法：searchKey = %d, index = %d\n", searchKey, index);
+    index = sequenceBinarySearchRecursion(list, searchKey, 1, list.length);
+    printf("二分查找法(递归)：searchKey = %d, index = %d\n", searchKey, index);
 }

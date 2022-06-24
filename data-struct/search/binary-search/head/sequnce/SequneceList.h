@@ -36,6 +36,16 @@ void printSeqList(SequenceList list);
 int sequenceBinarySearch(SequenceList list, int searchKey);
 
 /**
+ * 二分查找 递归
+ * @param list
+ * @param searchKey
+ * @param low
+ * @param high
+ * @return
+ */
+int sequenceBinarySearchRecursion(SequenceList list, int searchKey, int low, int high);
+
+/**
  * 冒泡排序
  * @param list
  */
